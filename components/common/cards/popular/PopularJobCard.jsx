@@ -1,14 +1,15 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from "react";
+import { View, Text } from "react-native";
 
-import styles from './popularjobcard.style'
+import styles from "./popularjobcard.style";
 
-const PopularJobCard = () => {
+const PopularJobCard = ({ title }) => {
   return (
-    <View>
-      <Text>PopularJobCard</Text>
+    <View style={styles.card}>
+      <Text style={styles.title}>{title}</Text>
     </View>
-  )
-}
+  );
+};
 
-export default PopularJobCard
+export default PopularJobCard;
+
