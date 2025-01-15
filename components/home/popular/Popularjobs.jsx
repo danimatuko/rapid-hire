@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -8,16 +8,15 @@ import {
 } from 'react-native'
 
 import useFetch from '../../../hooks/useFetch'
-
 import styles from './popularjobs.style'
 import { COLORS, SIZES } from '@/constants'
 import PopularJobCard from '@/components/common/cards/popular/PopularJobCard'
 
-const Popularjobs = () => {
+const PopularJobs = () => {
   const {
     isLoading,
     error,
-    data: jobsData, // Rename `data` to `jobsData`
+    data: jobsData,
   } = useFetch('search', {
     query: 'React Native Developer',
     page: '1',
@@ -55,11 +54,9 @@ const Popularjobs = () => {
       {/* Cards Section */}
       <View style={styles.cardsContainer}>
         <FlatList
-          data={jobsData?.jobs || []} // Safely access the `jobs` property of `jobsData`
-          renderItem={({ item }) => (
-            <PopularJobCard item={item} title={item.title} />
-          )}
-          keyExtractor={item => item._id || item.id || item.title} // Ensure each job has a unique key
+          data={jobsData?.data || []}
+          renderItem={({ item: job }) => <PopularJobCard job={job} />}
+          keyExtractor={job => job?._id || `${job?.job_title}_${job?.company}`}
           contentContainerStyle={{ columnGap: SIZES.medium }}
           horizontal
         />
@@ -68,4 +65,4 @@ const Popularjobs = () => {
   )
 }
 
-export default Popularjobs
+export default PopularJobs

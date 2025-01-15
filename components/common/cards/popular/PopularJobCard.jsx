@@ -1,15 +1,44 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 
-import styles from "./popularjobcard.style";
+import styles from './popularjobcard.style'
 
-const PopularJobCard = ({ title }) => {
+const PopularJobCard = ({ job, selectedJob }) => {
+  const handleCardPress = job => {
+    // Add logic for handling the card press
+    console.log('Job pressed:', job)
+  }
+
   return (
-    <View style={styles.card}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-};
+    <TouchableOpacity
+      style={styles.container(selectedJob, job)}
+      onPress={() => handleCardPress(job)} // Fix: Use a function reference
+    >
+      <TouchableOpacity style={styles.logoContainer(selectedJob, job)}>
+        <Image
+          source={{ uri: job?.employer_logo }}
+          resizeMode='contain'
+          style={styles.logoImage}
+        />
+      </TouchableOpacity>
 
-export default PopularJobCard;
+      <Text style={styles.companyName} numberOfLines={1}>
+        {job.employer_name}
+      </Text>
 
+      <View style={styles.infoContainer}>
+        <Text style={styles.jobName(selectedJob, job)} numberOfLines={1}>
+          {job.job_title}
+        </Text>
+        <View style={styles.infoWrapper}>
+          <Text style={styles.publisher(selectedJob, job)}>
+            {job?.job_publisher} -
+          </Text>
+          <Text style={styles.location}> {job.job_country}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+export default PopularJobCard
