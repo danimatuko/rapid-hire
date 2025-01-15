@@ -34,7 +34,7 @@ const PopularJobs = () => {
   if (error) {
     return (
       <View style={styles.cardsContainer}>
-        <Text>Something went wrong</Text>
+        <Text>{error}</Text>
       </View>
     )
   }
@@ -56,7 +56,9 @@ const PopularJobs = () => {
         <FlatList
           data={jobsData?.data || []}
           renderItem={({ item: job }) => <PopularJobCard job={job} />}
-          keyExtractor={job => job?._id || `${job?.job_title}_${job?.company}`}
+          keyExtractor={(job, index) =>
+            job?._id || `${job?.job_title}_${job?.company}_${index}`
+          }
           contentContainerStyle={{ columnGap: SIZES.medium }}
           horizontal
         />

@@ -1,9 +1,11 @@
 import React from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
-
 import styles from './popularjobcard.style'
 
 const PopularJobCard = ({ job, selectedJob }) => {
+  const fallbackLogo =
+    'https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg'
+
   const handleCardPress = job => {
     // Add logic for handling the card press
     console.log('Job pressed:', job)
@@ -16,7 +18,9 @@ const PopularJobCard = ({ job, selectedJob }) => {
     >
       <TouchableOpacity style={styles.logoContainer(selectedJob, job)}>
         <Image
-          source={{ uri: job?.employer_logo }}
+          source={{
+            uri: job.employer_logo || fallbackLogo,
+          }}
           resizeMode='contain'
           style={styles.logoImage}
         />
