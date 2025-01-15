@@ -4,7 +4,7 @@ import axios from 'axios'
 const useFetch = (endpoint, query) => {
   const [data, setData] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
 
   const options = {
     method: 'GET',
@@ -24,9 +24,10 @@ const useFetch = (endpoint, query) => {
       const response = await axios.request(options)
       setData(response.data)
     } catch (error) {
-      setError(error)
-      console.log(error)
-      alert('There is an error')
+      const errorMessage =
+        error?.response?.data?.message || 'Something went wrong'
+      console.error('Error:', errorMessage)
+      setError(errorMessage)
     } finally {
       setIsLoading(false)
     }
