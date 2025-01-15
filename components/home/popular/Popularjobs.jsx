@@ -1,34 +1,35 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   View,
   Text,
   TouchableOpacity,
   ActivityIndicator,
   FlatList,
-} from "react-native";
+} from 'react-native'
 
-import styles from "./popularjobs.style";
-import { COLORS, SIZES } from "@/constants";
-import PopularJobCard from "@/components/common/cards/popular/PopularJobCard";
+import useFetch from '../../../hooks/useFetch'
+
+import styles from './popularjobs.style'
+import { COLORS, SIZES } from '@/constants'
+import PopularJobCard from '@/components/common/cards/popular/PopularJobCard'
 
 const Popularjobs = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  // Simulated job data (replace with actual data from an API or context)
-  const jobsData = [
-    { _id: "1", title: "Software Engineer" },
-    { _id: "2", title: "Product Manager" },
-    { _id: "3", title: "UI/UX Designer" },
-    { _id: "4", title: "Data Scientist" },
-  ];
+  const {
+    isLoading,
+    error,
+    data: jobsData, // Rename `data` to `jobsData`
+  } = useFetch('search', {
+    query: 'React Native Developer',
+    page: '1',
+    num_pages: '1',
+  })
 
   if (isLoading) {
     return (
       <View style={styles.cardsContainer}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size='large' color={COLORS.primary} />
       </View>
-    );
+    )
   }
 
   if (error) {
@@ -36,7 +37,7 @@ const Popularjobs = () => {
       <View style={styles.cardsContainer}>
         <Text>Something went wrong</Text>
       </View>
-    );
+    )
   }
 
   return (
@@ -54,19 +55,17 @@ const Popularjobs = () => {
       {/* Cards Section */}
       <View style={styles.cardsContainer}>
         <FlatList
-          data={jobsData} // Replace with dynamic data
+          data={jobsData?.jobs || []} // Safely access the `jobs` property of `jobsData`
           renderItem={({ item }) => (
-            <View>
-              <PopularJobCard item={item} title={item.title} />
-            </View>
+            <PopularJobCard item={item} title={item.title} />
           )}
-          keyExtractor={(item) => item._id} // Ensure each job has a unique `_id`
+          keyExtractor={item => item._id || item.id || item.title} // Ensure each job has a unique key
           contentContainerStyle={{ columnGap: SIZES.medium }}
           horizontal
         />
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Popularjobs;
+export default Popularjobs
