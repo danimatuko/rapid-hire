@@ -1,21 +1,22 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
-import { COLORS, FONT, SIZES } from "../../../constants";
+import { COLORS, FONT, SIZES } from '../../../constants'
 
 const styles = StyleSheet.create({
   container: {
     marginTop: SIZES.xLarge,
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: SIZES.small,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    //marginTop: SIZES.small,
   },
   headerTitle: {
     fontSize: SIZES.large,
     fontFamily: FONT.medium,
     color: COLORS.primary,
+    marginBottom: SIZES.medium,
   },
   headerBtn: {
     fontSize: SIZES.medium,
@@ -25,7 +26,8 @@ const styles = StyleSheet.create({
   cardsContainer: {
     marginTop: SIZES.medium,
     gap: SIZES.small,
+    paddingBlock: SIZES.large,
   },
-});
+})
 
-export default styles;
+export default styles
