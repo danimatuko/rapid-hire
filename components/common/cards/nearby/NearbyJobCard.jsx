@@ -6,11 +6,6 @@ const NearbyJobCard = ({ job, handleNavigate }) => {
   const fallbackLogo =
     'https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg'
 
-  const handleCardPress = job => {
-    // Add logic for handling the card press
-    console.log('Job pressed:', job)
-  }
-
   return (
     <TouchableOpacity
       style={styles.container}
@@ -37,4 +32,3 @@ const NearbyJobCard = ({ job, handleNavigate }) => {
 }
 
 export default NearbyJobCard
-
